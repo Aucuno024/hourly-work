@@ -8,8 +8,8 @@
 function isFrenchBankHolidays(currentDate, easter, easterMonday){
 
     let ascension = new Date(easter.getFullYear(), easter.getMonth(), easter.getDate() + 39);
-    let pentecote = new Date(easter.getFullYear(), easter.getMonth(), easter.getDate() + 49);
-    let pentecoteMonday= new Date(easter.getFullYear(), easter.getMonth(), easter.getDate() + 50);
+    let pentecost = new Date(easter.getFullYear(), easter.getMonth(), easter.getDate() + 49);
+    let pentecostMonday= new Date(easter.getFullYear(), easter.getMonth(), easter.getDate() + 50);
 
     console.log(currentDate.toDateString(), ascension.toDateString())
     if(currentDate.getDate() === 25 && currentDate.getMonth() === 11){
@@ -36,9 +36,9 @@ function isFrenchBankHolidays(currentDate, easter, easterMonday){
         return true
     } else if(currentDate.toDateString() === ascension.toDateString()){
         return true
-    } else if(currentDate.toDateString() === pentecote.toDateString()){
+    } else if(currentDate.toDateString() === pentecost.toDateString()){
         return true
-    } else if(currentDate.toDateString() === pentecoteMonday.toDateString()){
+    } else if(currentDate.toDateString() === pentecostMonday.toDateString()){
         return true
     }
     return false
