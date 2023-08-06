@@ -8,7 +8,7 @@ const {isBankHolidays} = require("./bankHolidays")
  * @param {Date} endDate interval end date.
  * @param {Hourly} hourlyMorning morning hourly.
  * @param {Hourly} hourlyAfternoon afternoon hourly.
- * @param {String} country country for bank holidays.
+ * @param {String} country country for bank holidays, "none" for skip bank holidays.
  * @param {Boolean} includeWeekEnd weekend included or not, defaulted to false.
  * @return {Array<String>} list of work time between the date, weekend not included.
  */

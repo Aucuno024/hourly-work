@@ -129,9 +129,10 @@ function  isBankHolidays(currentDate, country){
             return isFrenchBankHolidays(currentDate, easter, easterMonday)
         case "USA":
             return isUSABankHolidays(currentDate, easter, easterMonday)
+        default:
+            return false
     }
 
-    return false
 }
 
 module.exports = {
