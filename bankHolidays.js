@@ -1,66 +1,136 @@
 /**
  *
- * @param {Date} date
+ * @param {Date} currentDate
+ * @param {Date} easter
+ * @param {Date} easterMonday
  * @return {Boolean}
  */
-function isFrenchBankHolidays(date){
-    /*
-        paques, lundiPaques, ascension, pentecote and lundiPentecote are not functionnal.
-     */
-    const G = date.getFullYear() % 19;
-    const C = Math.floor(date.getFullYear()/100)
-    const H = (C - Math.floor(C/4) - Math.floor((8*C+13)/25) + 19*G + 15)%30
-    const I = H - Math.floor(H / 28) * (1 - Math.floor(H / 28) * Math.floor(29 / (H + 1)) * Math.floor((21 - G) / 11));
-    const J = (date.getFullYear() + Math.floor(date.getFullYear() / 4) + I + 2 - C + Math.floor(C / 4)) % 7;
-    const L = I - J;
-    const moisPaques = 3 + Math.floor((L + 40) / 44);
-    const JourPaques = L + 28 - 31 * Math.floor(moisPaques / 4);
-    const paques = new Date(date.getFullYear(), moisPaques - 1, JourPaques);
-    const lundiPaques = new Date(date.getFullYear(), moisPaques - 1, JourPaques + 1);
-    const ascension = new Date(date.getFullYear(), moisPaques - 1, JourPaques + 39);
-    const pentecote = new Date(date.getFullYear(), moisPaques - 1, JourPaques + 49);
-    const lundiPentecote = new Date(date.getFullYear(), moisPaques - 1, JourPaques + 50);
-    if(date.getDate() === 25 && date.getMonth() === 11){
+function isFrenchBankHolidays(currentDate, easter, easterMonday){
+
+    let ascension = new Date(easter.getFullYear(), easter.getMonth(), easter.getDate() + 39);
+    let pentecote = new Date(easter.getFullYear(), easter.getMonth(), easter.getDate() + 49);
+    let pentecoteMonday= new Date(easter.getFullYear(), easter.getMonth(), easter.getDate() + 50);
+
+    console.log(currentDate.toDateString(), ascension.toDateString())
+    if(currentDate.getDate() === 25 && currentDate.getMonth() === 11){
         return true
-    } else if(date.getDate() === 11 && date.getMonth() === 10){
+    } else if(currentDate.getDate() === 11 && currentDate.getMonth() === 10){
         return true
-    } else if(date.getDate() === 1 && date.getMonth() === 0){
+    } else if(currentDate.getDate() === 1 && currentDate.getMonth() === 0){
         return true
-    } else if(date.getDate() === 1 && date.getMonth() === 4){
+    } else if(currentDate.getDate() === 1 && currentDate.getMonth() === 4){
         return true
-    } else if(date.getDate() === 8 && date.getMonth() === 4){
+    } else if(currentDate.getDate() === 8 && currentDate.getMonth() === 4){
         return true
-    } else if(date.getDate() === 14 && date.getMonth() === 6){
+    } else if(currentDate.getDate() === 14 && currentDate.getMonth() === 6){
         return true
-    } else if(date.getDate() === 15 && date.getMonth() === 7){
+    } else if(currentDate.getDate() === 15 && currentDate.getMonth() === 7){
         return true
-    } else if(date.getDate() === 1 && date.getMonth() === 10){
+    } else if(currentDate.getDate() === 1 && currentDate.getMonth() === 10){
         return true
-    } else if(date.toDateString() === paques.toString()){
+    } else if(currentDate.toDateString() === easter.toDateString()){
+        console.log("test")
         return true
-    } else if(date.toDateString() === lundiPaques.toString()){
+    } else if(currentDate.toDateString() === easterMonday.toDateString()){
+        console.log("test")
         return true
-    } else if(date.toDateString() === ascension.toString()){
+    } else if(currentDate.toDateString() === ascension.toDateString()){
         return true
-    } else if(date.toDateString() === pentecote.toDateString()){
+    } else if(currentDate.toDateString() === pentecote.toDateString()){
         return true
-    } else if(date.toDateString() === lundiPentecote.toDateString()){
+    } else if(currentDate.toDateString() === pentecoteMonday.toDateString()){
         return true
     }
     return false
 }
 
+
 /**
  *
- * @param {Date} date
+ * @param {Date} currentDate
+ * @param {Date} easter
+ * @param {Date} easterMonday
+ * @return {Boolean}
+ */
+function isUSABankHolidays(currentDate, easter, easterMonday){
+    let colombDay;
+    console.log(currentDate.toDateString())
+    if (currentDate.getMonth() === 9) {
+        colombDay = new Date(currentDate);
+        colombDay.setDate(1)
+        let monday = 0
+        while (monday < 2) {
+            if (colombDay.getDay() === 1) {
+                monday++
+            }
+            if (monday < 2) {
+                colombDay.setDate(colombDay.getDate() + 1)
+            }
+        }
+    }
+    else{
+        colombDay = new Date(currentDate);
+        colombDay.setDate(currentDate.getDate() - 1)
+    }
+    console.log(colombDay.toDateString(), currentDate.toDateString())
+    if(currentDate.getDate() === 25 && currentDate.getMonth() === 11){
+        return true
+    } else if (currentDate.getDate() === 1 && currentDate.getMonth() === 0) {
+        return true
+    } else if (currentDate.getDate() === 21 && currentDate.getMonth() === 0) {
+        return true
+    }else if (currentDate.getDate() === 3 && currentDate.getMonth() === 1) {
+        return true
+    } else if (currentDate.toDateString() === easter.toDateString()){
+        return true
+    } else if (currentDate.toDateString() === easterMonday.toDateString()){
+        return true
+    } else if (currentDate.getDate() === 27 && currentDate.getMonth() === 6){
+        return true
+    } else if (currentDate.getDate() === 4 && currentDate.getMonth() === 7){
+        return true
+    } else if (currentDate.getDate() === 2 && currentDate.getMonth() === 8){
+        return true
+    } else if (currentDate.toDateString() === colombDay.toDateString()){
+        return true
+    } else if(currentDate.getDate() === 8 && currentDate.getMonth() === 10){
+        return true
+    }else if(currentDate.getDate() === 11 && currentDate.getMonth() === 10){
+        return true
+    }
+}
+
+
+/**
+ *
+ * @param {Date} currentDate
  * @param {String}country
  * @return {Boolean|boolean}
  */
-function  isBankHolidays(date, country){
+function  isBankHolidays(currentDate, country){
+    let a = currentDate.getFullYear() % 19
+    let b = Math.floor((currentDate.getFullYear() / 100))
+    let c = currentDate.getFullYear() % 100
+    let d = Math.floor((b / 4))
+    let e = b % 4
+    let f = Math.floor((( b + 8) / 25))
+    let g = Math.floor(((b - f + 1) / 3))
+    let h =  ((19 * a) + b - d - g + 15) % 30
+    let i = Math.floor((c / 4))
+    let k = c % 4
+    let l = (32 + (2 * e) + (2 * i) - h - k) % 7
+    let m = Math.floor(((a + (11 * h ) + (22 * l)) / 451))
+    let month = Math.floor(((h + l - (7 * m) + (114)) / 31))
+    let day = 1 + (( h + l - (7 * m) + (114)) % 31)
+    let easter = new Date(currentDate.getFullYear(), month - 1, day);
+    let easterMonday = new Date(easter.getFullYear(), easter.getMonth(), easter.getDate() + 1);
     switch (country){
         case "France":
-            return isFrenchBankHolidays(date)
+            return isFrenchBankHolidays(currentDate, easter, easterMonday)
+        case "USA":
+            return isUSABankHolidays(currentDate, easter, easterMonday)
     }
+
     return false
 }
 
