@@ -1,5 +1,6 @@
 const {Hourly} = require("./hourly")
 const {Hour} = require("./hour")
+const {isBankHolidays} = require("./bankHolidays")
 
 /**
  * Obtains working hours between two dates.
@@ -7,10 +8,11 @@ const {Hour} = require("./hour")
  * @param {Date} endDate interval end date.
  * @param {Hourly} hourlyMorning morning hourly.
  * @param {Hourly} hourlyAfternoon afternoon hourly.
+ * @param {String} country country for bank holidays, "none" for skip bank holidays.
  * @param {Boolean} includeWeekEnd weekend included or not, defaulted to false.
  * @return {Array<String>} list of work time between the date, weekend not included.
  */
-function hourlyWork(beginDate, endDate, hourlyMorning, hourlyAfternoon, includeWeekEnd= false){
+function hourlyWork(beginDate, endDate, hourlyMorning, hourlyAfternoon, country, includeWeekEnd= false){
 
     let workTime = []
     let currentDate = beginDate
@@ -28,7 +30,7 @@ function hourlyWork(beginDate, endDate, hourlyMorning, hourlyAfternoon, includeW
 
     for (currentDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate()+1)) {
 
-        if((currentDate.getDay() !== 6 && currentDate.getDay() !== 0) || includeWeekEnd){
+        if(((currentDate.getDay() !== 6 && currentDate.getDay() !== 0) || includeWeekEnd) && !isBankHolidays(currentDate, country)){
             let workDay = []
             if (currentDate.toDateString() === endDate.toDateString() &&
                 endDate < new Date(currentDate).setHours(hourlyMorning.getHoursEnd(), hourlyMorning.getMinutesEnd())
@@ -64,14 +66,14 @@ function hourlyWork(beginDate, endDate, hourlyMorning, hourlyAfternoon, includeW
     }
     return workTime
 }
-let begin = new Date(2022, 1, 10, 11, 52)
-let end = new Date(2022, 1, 11, 22 , 53)
+let begin = new Date(2023, 9, 7, 11, 52)
+let end = new Date(2023, 9, 10, 22 , 53)
 let one = new Hour(8, 0)
 let two = new Hour(12, 0)
 let morning = new Hourly(one, two)
 let three = new Hour(13, 0)
 let four = new Hour(19, 0)
 let evening = new Hourly(three, four)
-let workTime = hourlyWork(begin, end, morning, evening)
+let workTime = hourlyWork(begin, end, morning, evening, "USA")
 console.log(workTime)
 
