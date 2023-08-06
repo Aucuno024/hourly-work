@@ -76,4 +76,3 @@ let four = new Hour(19, 0)
 let evening = new Hourly(three, four)
 let workTime = hourlyWork(begin, end, morning, evening, "USA")
 console.log(workTime)
-
