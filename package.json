@@ -1,0 +1,26 @@
+{
+  "name": "hourly-work",
+  "version": "1.0.0",
+  "description": "A basic work schedule management package.",
+  "main": "hourlywork.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aucuno024/hourly-work.git"
+  },
+  "keywords": [
+    "shedule",
+    "shedule",
+    "management",
+    "work",
+    "hourly"
+  ],
+  "author": "Aucuno024",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aucuno024/hourly-work/issues"
+  },
+  "homepage": "https://github.com/Aucuno024/hourly-work#readme"
+}

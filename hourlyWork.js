@@ -1,7 +1,6 @@
 const {Hourly} = require("./hourly")
-const {Hour} = require("./hour")
 const {isBankHolidays} = require("./bankHolidays")
-
+const {Hour} = require("./hour");
 /**
  * Obtains working hours between two dates.
  * @param {Date} beginDate interval start date.
@@ -66,13 +65,9 @@ function hourlyWork(beginDate, endDate, hourlyMorning, hourlyAfternoon, country,
     }
     return workTime
 }
-let begin = new Date(2023, 9, 7, 11, 52)
-let end = new Date(2023, 9, 10, 22 , 53)
-let one = new Hour(8, 0)
-let two = new Hour(12, 0)
-let morning = new Hourly(one, two)
-let three = new Hour(13, 0)
-let four = new Hour(19, 0)
-let evening = new Hourly(three, four)
-let workTime = hourlyWork(begin, end, morning, evening, "USA")
-console.log(workTime)
+
+module.exports = {
+    hourlyWork,
+    Hour,
+    Hourly
+}
